@@ -1,0 +1,28 @@
+<form (ngSubmit)="agregarGasto()">
+    <label>
+      Descripción:
+      <input [(ngModel)]="gasto.descripcion" name="descripcion" required>
+    </label>
+    <label>
+      Categoría:
+      <input [(ngModel)]="gasto.categoria" name="categoria" required>
+    </label>
+    <label>
+      Monto:
+      <input type="number" [(ngModel)]="gasto.monto" name="monto" required>
+    </label>
+    <label>
+      Fecha:
+      <input type="date" [(ngModel)]="gasto.fecha" name="fecha" required>
+    </label>
+    <label>
+      Método de Pago:
+      <input [(ngModel)]="gasto.metodoPago" name="metodoPago" required>
+    </label>
+    <label>
+      Frecuencia:
+      <input [(ngModel)]="gasto.frecuencia" name="frecuencia" required>
+    </label>
+    <button type="submit">Agregar Gasto</button>
+  </form>
+  

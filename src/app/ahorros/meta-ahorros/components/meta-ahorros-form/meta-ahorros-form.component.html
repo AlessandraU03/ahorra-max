@@ -1,0 +1,24 @@
+<form (ngSubmit)="agregarMeta()">
+    <label>
+      Nombre:
+      <input [(ngModel)]="meta.nombre" name="nombre" required>
+    </label>
+    <label>
+      Monto Objetivo:
+      <input type="number" [(ngModel)]="meta.montoObjetivo" name="montoObjetivo" required>
+    </label>
+    <label>
+      Fecha Límite:
+      <input type="date" [(ngModel)]="meta.fechaLimite" name="fechaLimite" required>
+    </label>
+    <label>
+      Progreso:
+      <input type="number" [(ngModel)]="meta.progreso" name="progreso" required>
+    </label>
+    <label>
+      Estado:
+      <input [(ngModel)]="meta.estado" name="estado" required>
+    </label>
+    <button type="submit">Agregar Meta</button>
+  </form>
+  

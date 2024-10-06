@@ -1,0 +1,7 @@
+<h2>Dashboard Gasto</h2>
+<app-gasto-form></app-gasto-form>
+<ul>
+  <li *ngFor="let gasto of gastos">
+    {{ gasto.descripcion }} - {{ gasto.monto }} - {{ gasto.fecha }}
+  </li>
+</ul>

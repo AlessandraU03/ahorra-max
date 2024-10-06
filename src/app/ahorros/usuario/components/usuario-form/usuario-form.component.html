@@ -1,0 +1,34 @@
+<form (ngSubmit)="agregarUsuario()">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required>
+    </div>
+  
+    <div>
+      <label for="correo">Correo Electrónico:</label>
+      <input type="email" id="correo" [(ngModel)]="usuario.correo" name="correo" required>
+    </div>
+  
+    <div>
+      <label for="ingresosMensuales">Ingresos Mensuales:</label>
+      <input type="number" id="ingresosMensuales" [(ngModel)]="usuario.ingresosMensuales" name="ingresosMensuales" required>
+    </div>
+  
+    <div>
+      <label for="presupuestoMensual">Presupuesto Mensual:</label>
+      <input type="number" id="presupuestoMensual" [(ngModel)]="usuario.presupuestoMensual" name="presupuestoMensual" required>
+    </div>
+  
+    <div>
+      <label for="saldoActual">Saldo Actual:</label>
+      <input type="number" id="saldoActual" [(ngModel)]="usuario.saldoActual" name="saldoActual" required>
+    </div>
+  
+    <div>
+      <label for="tipoCuenta">Tipo de Cuenta:</label>
+      <input type="text" id="tipoCuenta" [(ngModel)]="usuario.tipoCuenta" name="tipoCuenta" required>
+    </div>
+  
+    <button type="submit">Registrar Usuario</button>
+  </form>
+  

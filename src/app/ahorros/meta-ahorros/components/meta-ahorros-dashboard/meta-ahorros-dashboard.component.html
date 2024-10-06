@@ -1,0 +1,7 @@
+<h2>Dashboard Meta</h2>
+<app-meta-ahorros-form></app-meta-ahorros-form>
+<ul>
+  <li *ngFor="let meta of metas">
+    {{ meta.nombre }} - {{ meta.montoObjetivo }} - {{ meta.fechaLimite }}
+  </li>
+</ul>

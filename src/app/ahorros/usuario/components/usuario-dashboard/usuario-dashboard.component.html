@@ -1,0 +1,7 @@
+<h2>Dashboard Usuario</h2>
+<app-usuario-form></app-usuario-form>
+<ul>
+  <li *ngFor="let usuario of usuarios">
+    {{ usuario.nombre }} - {{ usuario.correo }}
+  </li>
+</ul>
