@@ -22,9 +22,9 @@ export class GastoFormComponent {
   constructor(private gastoService: GastoService) {}
 
   agregarGasto(): void {
-    if (this.gasto.monto > 0) {  // Validar que el monto no sea 0 o negativo
+    if (this.gasto.monto > 0) {  
       this.gastoService.agregarGasto(this.gasto);
-      this.resetForm();  // Reiniciar el formulario
+      this.resetForm();  
     } else {
       alert('El monto debe ser mayor a cero.');
     }
