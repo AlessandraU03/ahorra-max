@@ -1,21 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { MetaAhorrosService } from '../../services/meta-ahorros.service';
-import { MetaAhorros } from '../../models/meta-ahorros';
+// meta-ahorro-dashboard.component.ts
+import { Component } from '@angular/core';
+import { MetaAhorro } from '../../models/meta-ahorros';
+import { MetaAhorroService } from '../../services/meta-ahorros.service';
 
 @Component({
-  selector: 'app-meta-ahorros-dashboard',
-  templateUrl: './meta-ahorros-dashboard.component.html'
+    selector: 'app-meta-ahorros-dashboard',
+    templateUrl: './meta-ahorros-dashboard.component.html',
+    styleUrls: ['./meta-ahorros-dashboard.component.css']
 })
-export class MetaAhorrosDashboardComponent implements OnInit {
-  metas: MetaAhorros[] = [];
+export class MetaAhorrosDashboardComponent {
+    metas: MetaAhorro[] = [];
 
-  constructor(private metaAhorrosService: MetaAhorrosService) {}
+    constructor(private metaService: MetaAhorroService) {
+        this.metas = this.metaService.obtenerMetas();
+    }
 
-  ngOnInit(): void {
-    this.loadMetas();
-  }
+    eliminarMeta(id: number | undefined): void {
+        if (id !== undefined) {
+            this.metaService.eliminarMeta(id);
+            this.metas = this.metaService.obtenerMetas();
+        }
+    }
 
-  private loadMetas(): void {
-    this.metas = this.metaAhorrosService.getMetas();
-  }
+    actualizarProgreso(meta: MetaAhorro): void {
+        meta.progreso = (meta.montoAhorrado / meta.montoObjetivo) * 100;
+    
+        if (meta.progreso >= 100) {
+            meta.progreso = 100;
+            meta.estado = 'Alcanzada';
+        } else if (new Date() > new Date(meta.fechaLimite)) {
+            meta.estado = 'Fallida';
+        } else {
+            meta.estado = 'En progreso';
+        }
+ 
+        this.metaService.actualizarMeta(meta);
+    }
+    
+    
 }

@@ -1,8 +1,9 @@
-export interface MetaAhorros {
-    nombre: string;
-    montoObjetivo: number;
-    fechaLimite: string;
-    progreso: number;
-    estado: string;
-  
+export interface MetaAhorro {
+  id: number;
+  nombreMeta: string;
+  montoObjetivo: number;
+  fechaLimite: Date;
+  montoAhorrado: number;  
+  progreso: number;
+  estado: 'Alcanzada' | 'En progreso' | 'Fallida';
 }

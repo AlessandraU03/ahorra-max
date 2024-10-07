@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GastoDashboardComponent } from './components/gasto-dashboard/gasto-dashboard.component';
+import { GastoComponent } from './gasto.component';
 import { GastoFormComponent } from './components/gasto-form/gasto-form.component';
+import { GastoListComponent } from './components/gasto-list/gasto-list.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    GastoDashboardComponent,
-    GastoFormComponent
+    GastoComponent,
+    GastoFormComponent,
+    GastoListComponent
   ],
   imports: [
-    CommonModule,  FormsModule
+    CommonModule,
+    FormsModule
   ],
-  exports: [GastoDashboardComponent, GastoFormComponent]
+  exports: [
+    GastoComponent
+  ]
 })
 export class GastoModule { }

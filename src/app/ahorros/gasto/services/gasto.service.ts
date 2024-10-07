@@ -1,3 +1,4 @@
+// gasto.service.ts
 import { Injectable } from '@angular/core';
 import { Gasto } from '../models/gasto';
 
@@ -6,24 +7,41 @@ import { Gasto } from '../models/gasto';
 })
 export class GastoService {
   private gastos: Gasto[] = [];
+  private nextId = 1;
 
-  constructor() { 
-    this.loadGastos();
+  constructor() {
+    this.loadFromLocalStorage(); 
   }
 
-  saveGasto(gasto: Gasto): void {
+  agregarGasto(gasto: Gasto): void {
+    gasto.id = this.nextId++;
     this.gastos.push(gasto);
-    localStorage.setItem('gastos', JSON.stringify(this.gastos));
+    this.saveToLocalStorage();
   }
 
   getGastos(): Gasto[] {
     return this.gastos;
   }
 
-  private loadGastos(): void {
+  private saveToLocalStorage(): void {
+    localStorage.setItem('gastos', JSON.stringify(this.gastos));
+  }
+
+  private loadFromLocalStorage(): void {
     const gastos = localStorage.getItem('gastos');
     if (gastos) {
       this.gastos = JSON.parse(gastos);
+      this.nextId = this.gastos.length ? Math.max(...this.gastos.map(g => g.id)) + 1 : 1;
     }
+  }
+
+  eliminarGasto(id: number): void {
+    this.gastos = this.gastos.filter(gasto => gasto.id !== id);
+    this.saveToLocalStorage();
+  }
+
+  eliminarTodosGastos(): void {
+    this.gastos = [];
+    this.saveToLocalStorage();
   }
 }

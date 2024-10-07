@@ -1,18 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioDashboardComponent } from './components/usuario-dashboard/usuario-dashboard.component';
+import { UsuarioComponent } from './usuario.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+import { UsuarioDashboardComponent } from './components/usuario-dashboard/usuario-dashboard.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    UsuarioDashboardComponent,
-    UsuarioFormComponent
+    UsuarioComponent,
+    UsuarioFormComponent,
+    UsuarioDashboardComponent // Declarar el nuevo componente
   ],
   imports: [
     CommonModule,
     FormsModule
   ],
-  exports: [UsuarioDashboardComponent, UsuarioFormComponent]
+  exports: [
+    UsuarioComponent,
+    UsuarioDashboardComponent // Exportar el nuevo componente si es necesario
+  ]
 })
 export class UsuarioModule { }

@@ -5,6 +5,5 @@ export interface Usuario {
     ingresosMensuales: number;
     presupuestoMensual: number;
     saldoActual: number;
-    tipoCuenta: string;
   }
   

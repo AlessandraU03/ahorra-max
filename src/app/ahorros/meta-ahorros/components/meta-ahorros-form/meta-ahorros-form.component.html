@@ -1,24 +1,26 @@
-<form (ngSubmit)="agregarMeta()">
-    <label>
-      Nombre:
-      <input [(ngModel)]="meta.nombre" name="nombre" required>
-    </label>
-    <label>
-      Monto Objetivo:
-      <input type="number" [(ngModel)]="meta.montoObjetivo" name="montoObjetivo" required>
-    </label>
-    <label>
-      Fecha Límite:
-      <input type="date" [(ngModel)]="meta.fechaLimite" name="fechaLimite" required>
-    </label>
-    <label>
-      Progreso:
-      <input type="number" [(ngModel)]="meta.progreso" name="progreso" required>
-    </label>
-    <label>
-      Estado:
-      <input [(ngModel)]="meta.estado" name="estado" required>
-    </label>
-    <button type="submit">Agregar Meta</button>
+<div class="container">
+  <h1>Registrar Meta de Ahorro</h1>
+  <form (ngSubmit)="agregarMeta()">
+      <div>
+          <label for="nombreMeta">Nombre de la Meta:</label>
+          <input type="text" id="nombreMeta" [(ngModel)]="meta.nombreMeta" name="nombreMeta" required>
+      </div>
+
+      <div>
+          <label for="montoObjetivo">Monto Objetivo:</label>
+          <input type="number" id="montoObjetivo" [(ngModel)]="meta.montoObjetivo" name="montoObjetivo" required>
+      </div>
+
+      <div>
+          <label for="fechaLimite">Fecha Límite:</label>
+          <input type="date" id="fechaLimite" [(ngModel)]="meta.fechaLimite" name="fechaLimite" required>
+      </div>
+
+      <div>
+        <label for="montoAhorrado">Monto Ahorrado:</label>
+        <input type="number" id="montoAhorrado" [(ngModel)]="meta.montoAhorrado" name="montoAhorrado">
+    </div>
+    
+      <button type="submit">Registrar Meta</button>
   </form>
-  
+</div>

@@ -1,20 +1,23 @@
+// meta-ahorros.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MetaAhorrosDashboardComponent } from './components/meta-ahorros-dashboard/meta-ahorros-dashboard.component';
+import { MetaAhorrosComponent } from './meta-ahorros.component';
 import { MetaAhorrosFormComponent } from './components/meta-ahorros-form/meta-ahorros-form.component';
+import { MetaAhorrosDashboardComponent } from './components/meta-ahorros-dashboard/meta-ahorros-dashboard.component';
 import { FormsModule } from '@angular/forms';
-
-
 
 @NgModule({
   declarations: [
-    MetaAhorrosDashboardComponent,
-    MetaAhorrosFormComponent
+    MetaAhorrosComponent,         
+    MetaAhorrosFormComponent,
+    MetaAhorrosDashboardComponent
   ],
   imports: [
     CommonModule,
     FormsModule
   ],
-  exports: [MetaAhorrosDashboardComponent, MetaAhorrosFormComponent]
+  exports: [
+    MetaAhorrosComponent      
+  ]
 })
 export class MetaAhorrosModule { }

@@ -1,37 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario';
-
 @Component({
   selector: 'app-usuario-form',
-  templateUrl: './usuario-form.component.html'
+  templateUrl: './usuario-form.component.html',
+  styleUrls: ['./usuario-form.component.css']
 })
-export class UsuarioFormComponent implements OnInit {
+export class UsuarioFormComponent {
   usuario: Usuario = {
-    id: Date.now(),  // Genera un ID basado en la fecha y hora actual
+    id: 0,
     nombre: '',
     correo: '',
     ingresosMensuales: 0,
     presupuestoMensual: 0,
     saldoActual: 0,
-    tipoCuenta: ''
+
   };
 
   constructor(private usuarioService: UsuarioService) {}
 
-  ngOnInit(): void {}
-
   agregarUsuario(): void {
-    this.usuario.id = Date.now();  // Genera un nuevo ID antes de guardar el usuario
-    this.usuarioService.saveUsuario(this.usuario);
-    this.usuario = {
-      id: Date.now(),  // Asegura que se cree un nuevo ID para el siguiente usuario
-      nombre: '',
-      correo: '',
-      ingresosMensuales: 0,
-      presupuestoMensual: 0,
-      saldoActual: 0,
-      tipoCuenta: ''
-    };
+    if (this.validarDatos()) {
+      this.usuarioService.saveUsuario(this.usuario);
+      this.usuario = {
+        id: 0,
+        nombre: '',
+        correo: '',
+        ingresosMensuales: 0,
+        presupuestoMensual: 0,
+        saldoActual: 0,
+
+      };
+    } else {
+      alert('Por favor, ingresa valores válidos.');
+    }
+  }
+
+  validarDatos(): boolean {
+    return (
+      this.usuario.ingresosMensuales > 0 &&
+      this.usuario.presupuestoMensual > 0 &&
+      this.usuario.saldoActual >= 0 
+    );
   }
 }

@@ -10,7 +10,7 @@ import { AhorrosModule } from './ahorros/ahorros.module';
   ],
   imports: [
     BrowserModule,
-    AhorrosModule, // Importar el módulo AhorrosModule en lugar del componente
+    AhorrosModule,
   ],
   bootstrap: [AppComponent]
 })
