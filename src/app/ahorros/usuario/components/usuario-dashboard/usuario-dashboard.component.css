@@ -1,0 +1,65 @@
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  border-radius: 8px;
+  max-width: 600px;
+  background-color: #aedbea;
+}
+
+h2 {
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin-bottom: 15px;
+}
+
+p {
+  font-family: Arial, sans-serif;
+  margin: 20px 0;
+}
+
+button {
+  background-color: #2d6073;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s; 
+}
+
+button:hover {
+  background-color: #1f192f;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+label {
+  font-weight: bold; 
+  margin-bottom: 5px; 
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select {
+  padding: 10px; 
+  border-radius: 5px;
+  font-size: 16px; 
+}
+
+select {
+  cursor: pointer; 
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  margin-top: 20px; 
+}

@@ -1,0 +1,47 @@
+<div *ngIf="usuario">
+  <div *ngIf="!isEditing">
+    <h2>Detalles del Usuario</h2>
+    <div>
+      <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+      <p><strong>Correo:</strong> {{ usuario.correo }}</p>
+      <p><strong>Ingresos Mensuales:</strong> {{ usuario.ingresosMensuales }}</p>
+      <p><strong>Presupuesto Mensual:</strong> {{ usuario.presupuestoMensual }}</p>
+      <p><strong>Saldo Actual:</strong> {{ usuario.saldoActual }}</p>
+      <button (click)="toggleEdit()">Editar</button>
+      <button (click)="eliminarUsuario()">Eliminar Usuario</button>
+    </div>
+  </div>
+  
+  <div *ngIf="isEditing">
+    <h2>Editar Usuario</h2>
+    <form (ngSubmit)="guardarCambios()">
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required>
+      </div>
+      
+      <div>
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" [(ngModel)]="usuario.correo" name="correo" required>
+      </div>
+      
+      <div>
+        <label for="ingresosMensuales">Ingresos Mensuales:</label>
+        <input type="number" id="ingresosMensuales" [(ngModel)]="usuario.ingresosMensuales" name="ingresosMensuales" required>
+      </div>
+      
+      <div>
+        <label for="presupuestoMensual">Presupuesto Mensual:</label>
+        <input type="number" id="presupuestoMensual" [(ngModel)]="usuario.presupuestoMensual" name="presupuestoMensual" required>
+      </div>
+      
+      <div>
+        <label for="saldoActual">Saldo Actual:</label>
+        <input type="number" id="saldoActual" [(ngModel)]="usuario.saldoActual" name="saldoActual" required>
+      </div>
+      
+      <button type="submit">Guardar Cambios</button>
+      <button type="button" (click)="toggleEdit()">Cancelar</button>
+    </form>
+  </div>
+</div>

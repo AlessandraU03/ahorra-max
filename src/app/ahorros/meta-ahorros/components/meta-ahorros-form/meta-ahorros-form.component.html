@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Registrar Meta de Ahorro</h1>
+  <form (ngSubmit)="agregarMeta()">
+      <div>
+          <label for="nombreMeta">Nombre de la Meta:</label>
+          <input type="text" id="nombreMeta" [(ngModel)]="meta.nombreMeta" name="nombreMeta" required>
+      </div>
+
+      <div>
+          <label for="montoObjetivo">Monto Objetivo:</label>
+          <input type="number" id="montoObjetivo" [(ngModel)]="meta.montoObjetivo" name="montoObjetivo" required>
+      </div>
+
+      <div>
+          <label for="fechaLimite">Fecha Límite:</label>
+          <input type="date" id="fechaLimite" [(ngModel)]="meta.fechaLimite" name="fechaLimite" required>
+      </div>
+
+      <div>
+        <label for="montoAhorrado">Monto Ahorrado:</label>
+        <input type="number" id="montoAhorrado" [(ngModel)]="meta.montoAhorrado" name="montoAhorrado">
+    </div>
+    
+      <button type="submit">Registrar Meta</button>
+  </form>
+</div>

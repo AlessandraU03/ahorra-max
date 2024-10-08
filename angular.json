@@ -99,6 +99,14 @@
             ],
             "scripts": []
           }
+        },
+
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "repo": "https://github.com/AlessandraU03/ahorra-max.git"
+
+          }
         }
       }
     }

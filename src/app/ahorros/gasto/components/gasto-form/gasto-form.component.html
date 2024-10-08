@@ -1,0 +1,54 @@
+<!-- gasto-form.component.html -->
+<div class="container">
+  <h1>Registrar Gasto</h1>
+  <form (ngSubmit)="agregarGasto()">
+    <div>
+      <label for="descripcion">Descripción:</label>
+      <input type="text" id="descripcion" [(ngModel)]="gasto.descripcion" name="descripcion" required>
+    </div>
+    
+    <div>
+      <label for="categoria">Categoría:</label>
+      <select id="categoria" [(ngModel)]="gasto.categoria" name="categoria" required>
+        <option value="">Selecciona una categoría</option>
+        <option value="Alimentación">Alimentación</option>
+        <option value="Transporte">Transporte</option>
+        <option value="Entretenimiento">Entretenimiento</option>
+        <option value="Vivienda">Vivienda</option>
+        <option value="Salud">Salud</option>
+        <option value="Educación">Educación</option>
+        <option value="Ropa">Ropa</option>
+        <option value="Otros">Otros</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="monto">Monto:</label>
+      <input type="number" id="monto" [(ngModel)]="gasto.monto" name="monto" required>
+    </div>
+
+    <div>
+      <label for="fecha">Fecha:</label>
+      <input type="date" id="fecha" [(ngModel)]="gasto.fecha" name="fecha" required>
+    </div>
+
+    <div>
+      <label for="metodoPago">Método de Pago:</label>
+      <input type="text" id="metodoPago" [(ngModel)]="gasto.metodoPago" name="metodoPago" required>
+    </div>
+
+    <div>
+      <label for="frecuencia">Frecuencia:</label>
+      <select id="frecuencia" [(ngModel)]="gasto.frecuencia" name="frecuencia" required>
+        <option value="">Selecciona una frecuencia</option>
+        <option value="Único">Único</option>
+        <option value="Semanal">Semanal</option>
+        <option value="Mensual">Mensual</option>
+      </select>
+    </div>
+
+    <div class="form-button-container">
+      <button type="submit">Registrar Gasto</button>
+    </div>
+  </form>
+</div>
