@@ -1,7 +1,7 @@
-// gasto-form.component.ts
 import { Component } from '@angular/core';
 import { GastoService } from '../../services/gasto.service';
 import { Gasto } from '../../models/gasto';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gasto-form',
@@ -22,12 +22,42 @@ export class GastoFormComponent {
   constructor(private gastoService: GastoService) {}
 
   agregarGasto(): void {
-    if (this.gasto.monto > 0) {  
-      this.gastoService.agregarGasto(this.gasto);
-      this.resetForm();  
-    } else {
-      alert('El monto debe ser mayor a cero.');
+    if (this.validarGasto()) {
+      this.gastoService.creargasto(this.gasto).subscribe({
+        next: () => {
+          this.resetForm();
+          Swal.fire({
+            title: '¡Éxito!',
+            text: 'El gasto ha sido registrado correctamente.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          });
+        },
+        error: (error) => {
+          console.error('Error al agregar el gasto:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'No se pudo registrar el gasto. Inténtalo de nuevo.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      });
     }
+  }
+
+  validarGasto(): boolean {
+    if (!this.gasto.descripcion || !this.gasto.categoria || this.gasto.monto <= 0 ||
+        !this.gasto.fecha || !this.gasto.metodoPago || !this.gasto.frecuencia) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, completa todos los campos obligatorios.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      return false; 
+    }
+    return true; 
   }
 
   resetForm(): void {

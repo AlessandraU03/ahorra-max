@@ -1,41 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Usuario } from '../models/usuario';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  private usuarios: Usuario[] = [];
-  private nextId = 1;
-  public usuarioActual$: Subject<Usuario | null> = new Subject<Usuario | null>();
+  private apiUrl = 'http://127.0.0.1:8000'; // URL de tu API FastAPI
 
-  saveUsuario(usuario: Usuario): void {
-    usuario.id = this.nextId++;
-    this.usuarios.push(usuario);
-    this.saveToLocalStorage();
-    this.usuarioActual$.next(usuario); 
+  constructor(private http: HttpClient) { }
+
+  // Métodos CRUD para Usuario
+  crearUsuario(usuario: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuarios/`, usuario);
   }
 
-  getUsuario(): Usuario | null {
-    return this.usuarios.length ? this.usuarios[0] : null;
+  listarUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/usuarios/`);
   }
 
-  private saveToLocalStorage(): void {
-    localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
+  leerUsuario(usuarioId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/usuarios/${usuarioId}`);
   }
 
-  loadFromLocalStorage(): void {
-    const usuarios = localStorage.getItem('usuarios');
-    if (usuarios) {
-      this.usuarios = JSON.parse(usuarios);
-      this.nextId = this.usuarios.length ? Math.max(...this.usuarios.map(u => u.id)) + 1 : 1;
-    }
+  actualizarUsuario(usuarioId: number, usuario: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/usuarios/${usuarioId}`, usuario);
   }
 
-  eliminarUsuario(): void {
-    this.usuarios = [];
-    this.saveToLocalStorage();
-    this.usuarioActual$.next(null); 
+  eliminarUsuario(usuarioId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/usuarios/${usuarioId}`);
   }
+
 }

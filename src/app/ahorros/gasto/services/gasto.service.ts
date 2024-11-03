@@ -1,47 +1,33 @@
-// gasto.service.ts
 import { Injectable } from '@angular/core';
-import { Gasto } from '../models/gasto';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GastoService {
-  private gastos: Gasto[] = [];
-  private nextId = 1;
+  private apiUrl = 'http://127.0.0.1:8000'; // URL de tu API FastAPI
 
-  constructor() {
-    this.loadFromLocalStorage(); 
+  constructor(private http: HttpClient) { }
+
+  creargasto(gasto: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/gastos/`, gasto);
   }
 
-  agregarGasto(gasto: Gasto): void {
-    gasto.id = this.nextId++;
-    this.gastos.push(gasto);
-    this.saveToLocalStorage();
+  listargastos(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/gastos/`);
   }
 
-  getGastos(): Gasto[] {
-    return this.gastos;
+  leergasto(gastoId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/gastos/${gastoId}`);
   }
 
-  private saveToLocalStorage(): void {
-    localStorage.setItem('gastos', JSON.stringify(this.gastos));
+  actualizargasto(gastoId: number, gasto: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/gastos/${gastoId}`, gasto);
   }
 
-  private loadFromLocalStorage(): void {
-    const gastos = localStorage.getItem('gastos');
-    if (gastos) {
-      this.gastos = JSON.parse(gastos);
-      this.nextId = this.gastos.length ? Math.max(...this.gastos.map(g => g.id)) + 1 : 1;
-    }
+  eliminargasto(gastoId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/gastos/${gastoId}`);
   }
 
-  eliminarGasto(id: number): void {
-    this.gastos = this.gastos.filter(gasto => gasto.id !== id);
-    this.saveToLocalStorage();
-  }
-
-  eliminarTodosGastos(): void {
-    this.gastos = [];
-    this.saveToLocalStorage();
-  }
 }

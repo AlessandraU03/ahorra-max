@@ -1,60 +1,33 @@
-// meta-ahorro.service.ts
 import { Injectable } from '@angular/core';
-import { MetaAhorro } from '../models/meta-ahorros';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MetaAhorroService {
-    private metas: MetaAhorro[] = [];
+  private apiUrl = 'http://127.0.0.1:8000'; 
 
-    constructor() {
-        this.cargarMetas(); // Carga las metas del localStorage al inicializar
-    }
+  constructor(private http: HttpClient) { }
 
-    agregarMeta(meta: MetaAhorro): void {
-        this.metas.push(meta);
-        this.guardarMetas();
-    }
+  crearMeta(meta: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/metas/`, meta);
+  }
 
-    obtenerMetas(): MetaAhorro[] {
-        return this.metas;
-    }
+  listarMetas(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/metas/`);
+  }
 
-    eliminarMeta(id: number): void {
-        this.metas = this.metas.filter(meta => meta.id !== id);
-        this.guardarMetas();
-    }
+  leerMeta(metaId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/metas/${metaId}`);
+  }
 
-    private guardarMetas(): void {
-        localStorage.setItem('metas', JSON.stringify(this.metas));
-    }
+  actualizarMeta(metaId: number, meta: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/metas/${metaId}`, meta);
+  }
 
-    private cargarMetas(): void {
-        const metasJson = localStorage.getItem('metas');
-        if (metasJson) {
-            this.metas = JSON.parse(metasJson);
-        }
-    }
+  eliminarMeta(metaId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/metas/${metaId}`);
+  }
 
-    actualizarProgreso(meta: MetaAhorro): void {
-        meta.progreso = (meta.montoAhorrado / meta.montoObjetivo) * 100;
-        if (meta.progreso >= 100) {
-            meta.progreso = 100;
-            meta.estado = 'Alcanzada';
-        }
-        this.guardarMetas();
-    }
-
-actualizarMeta(meta: MetaAhorro): void {
-    const index = this.metas.findIndex(m => m.id === meta.id);
-    if (index > -1) {
-        this.metas[index] = meta;
-        this.guardarMetas();
-    }
-}
-
-    
-    
-    
 }

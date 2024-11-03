@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GastoService } from '../../services/gasto.service';
 import { Gasto } from '../../models/gasto';
 import { Usuario } from '../../../usuario/models/usuario';
 import { UsuarioService } from '../../../usuario/services/usuario.service';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-gasto-list',
   templateUrl: './gasto-list.component.html',
   styleUrls: ['./gasto-list.component.css']
 })
-export class GastoListComponent {
+export class GastoListComponent implements OnInit {
   gastos: Gasto[] = [];
   totalGastos: number = 0;
   saldoActual: number = 0; 
@@ -16,9 +18,20 @@ export class GastoListComponent {
   constructor(private gastoService: GastoService, private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
-    this.gastos = this.gastoService.getGastos();
-    this.calcularTotalGastos();
+    this.cargarGastos();
     this.obtenerSaldoUsuario();
+  }
+
+  cargarGastos(): void {
+    this.gastoService.listargastos().subscribe({
+      next: (gastos: Gasto[]) => {
+        this.gastos = gastos;
+        this.calcularTotalGastos();
+      },
+      error: (error) => {
+        console.error('Error al cargar los gastos:', error);
+      }
+    });
   }
 
   calcularTotalGastos(): void {
@@ -26,15 +39,40 @@ export class GastoListComponent {
   }
 
   obtenerSaldoUsuario(): void {
-    const usuario: Usuario | null = this.usuarioService.getUsuario(); 
-    if (usuario) {
-      this.saldoActual = usuario.saldoActual; 
-    }
+    const usuarioId = 1; // Asegúrate de obtener el ID correcto del usuario
+    this.usuarioService.leerUsuario(usuarioId).subscribe({
+      next: (usuario: Usuario) => {
+        this.saldoActual = usuario.saldoActual; 
+      },
+      error: (error) => {
+        console.error('Error al obtener el usuario:', error);
+      }
+    });
   }
 
   eliminarGasto(id: number): void {
-    this.gastoService.eliminarGasto(id);
-    this.gastos = this.gastoService.getGastos();
-    this.calcularTotalGastos();
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esta acción!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.gastoService.eliminargasto(id).subscribe({
+          next: () => {
+            this.cargarGastos(); // Recargar gastos después de eliminar uno
+            Swal.fire('Eliminado!', 'El gasto ha sido eliminado.', 'success');
+          },
+          error: (error) => {
+            console.error('Error al eliminar el gasto:', error);
+            Swal.fire('Error', 'No se pudo eliminar el gasto.', 'error');
+          }
+        });
+      }
+    });
   }
 }
