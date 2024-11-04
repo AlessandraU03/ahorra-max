@@ -41,7 +41,7 @@ export class MetaAhorrosDashboardComponent implements OnInit {
         if (result.isConfirmed) {
           this.metaService.eliminarMeta(id).subscribe({
             next: () => {
-              this.cargarMetas(); // Recarga la lista después de eliminar
+              this.cargarMetas(); 
               Swal.fire('Eliminado!', 'La meta ha sido eliminada.', 'success');
             },
             error: (error) => {
