@@ -8,18 +8,19 @@ import { MetaAhorrosModule } from './meta-ahorros/meta-ahorros.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
-  declarations: [AhorrosComponent, HeaderComponent, FooterComponent, LoginComponent, RegisterComponent],
+  declarations: [AhorrosComponent, HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
     UsuarioModule,
     GastoModule,
     MetaAhorrosModule,
     RouterModule,
+    ReactiveFormsModule,
     FormsModule
   ],
   exports: [AhorrosComponent]

@@ -30,5 +30,4 @@ export class UsuarioService {
   eliminarUsuario(usuarioId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/usuarios/${usuarioId}`);
   }
-
 }
