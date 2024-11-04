@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class GastoListComponent implements OnInit {
   gastos: Gasto[] = [];
   totalGastos: number = 0;
-  saldoActual: number = 0; 
+  saldoActual: number = 0;
 
   constructor(private gastoService: GastoService, private usuarioService: UsuarioService) {}
 
@@ -39,15 +39,12 @@ export class GastoListComponent implements OnInit {
   }
 
   obtenerSaldoUsuario(): void {
-    const usuarioId = 11; 
-    this.usuarioService.leerUsuario(usuarioId).subscribe({
-      next: (usuario: Usuario) => {
-        this.saldoActual = usuario.saldoActual; 
-      },
-      error: (error) => {
-        console.error('Error al obtener el usuario:', error);
-      }
-    });
+    const usuario = this.usuarioService.getUsuario();
+    if (usuario) {
+      this.saldoActual = usuario.saldoActual;
+    } else {
+      console.error('No se encontró ningún usuario.');
+    }
   }
 
   eliminarGasto(id: number): void {

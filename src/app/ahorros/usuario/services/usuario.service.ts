@@ -1,33 +1,45 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  private apiUrl = 'http://127.0.0.1:8000'; // URL de tu API FastAPI
+  private usuarios: Usuario[] = [];
+  private nextId = 1;
+  public usuarioActual$: Subject<Usuario | null> = new Subject<Usuario | null>();
 
-  constructor(private http: HttpClient) { }
-
-  // Métodos CRUD para Usuario
-  crearUsuario(usuario: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/usuarios/`, usuario);
+  constructor() {
+    this.loadFromLocalStorage();
   }
 
-  listarUsuarios(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/usuarios/`);
+  saveUsuario(usuario: Usuario): void {
+    usuario.id = this.nextId++;
+    this.usuarios.push(usuario);
+    this.saveToLocalStorage();
+    this.usuarioActual$.next(usuario); 
   }
 
-  leerUsuario(usuarioId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/usuarios/${usuarioId}`);
+  getUsuario(): Usuario | null {
+    return this.usuarios.length ? this.usuarios[0] : null;
   }
 
-  actualizarUsuario(usuarioId: number, usuario: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/usuarios/${usuarioId}`, usuario);
+  private saveToLocalStorage(): void {
+    localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
   }
 
-  eliminarUsuario(usuarioId: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/usuarios/${usuarioId}`);
+  loadFromLocalStorage(): void {
+    const usuarios = localStorage.getItem('usuarios');
+    if (usuarios) {
+      this.usuarios = JSON.parse(usuarios);
+      this.nextId = this.usuarios.length ? Math.max(...this.usuarios.map(u => u.id)) + 1 : 1;
+    }
+  }
+
+  eliminarUsuario(): void {
+    this.usuarios = [];
+    this.saveToLocalStorage();
+    this.usuarioActual$.next(null); 
   }
 }
