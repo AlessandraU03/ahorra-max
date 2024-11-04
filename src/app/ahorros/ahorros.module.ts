@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [AhorrosComponent, HeaderComponent, FooterComponent],
   imports: [
@@ -21,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MetaAhorrosModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    
   ],
   exports: [AhorrosComponent]
 })
