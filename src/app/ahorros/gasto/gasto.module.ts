@@ -5,6 +5,8 @@ import { GastoFormComponent } from './components/gasto-form/gasto-form.component
 import { GastoListComponent } from './components/gasto-list/gasto-list.component';
 import { FormsModule } from '@angular/forms';
 
+
+
 @NgModule({
   declarations: [
     GastoComponent,
@@ -13,7 +15,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+
   ],
   exports: [
     GastoComponent
