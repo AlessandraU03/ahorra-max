@@ -5,8 +5,7 @@ import { AhorrosComponent } from './ahorros/ahorros.component';
 import { UsuarioComponent } from './ahorros/usuario/usuario.component';
 import { GastoComponent } from './ahorros/gasto/gasto.component';
 import { MetaAhorrosComponent } from './ahorros/meta-ahorros/meta-ahorros.component';
-import { RegisterComponent } from './ahorros/register/register.component';
-import { LoginComponent } from './ahorros/login/login.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -18,9 +17,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'usuario', pathMatch: 'full' }
     ]
   },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

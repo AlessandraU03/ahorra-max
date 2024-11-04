@@ -39,7 +39,7 @@ export class GastoListComponent implements OnInit {
   }
 
   obtenerSaldoUsuario(): void {
-    const usuarioId = 1; // Asegúrate de obtener el ID correcto del usuario
+    const usuarioId = 11; 
     this.usuarioService.leerUsuario(usuarioId).subscribe({
       next: (usuario: Usuario) => {
         this.saldoActual = usuario.saldoActual; 
@@ -64,7 +64,7 @@ export class GastoListComponent implements OnInit {
       if (result.isConfirmed) {
         this.gastoService.eliminargasto(id).subscribe({
           next: () => {
-            this.cargarGastos(); // Recargar gastos después de eliminar uno
+            this.cargarGastos(); 
             Swal.fire('Eliminado!', 'El gasto ha sido eliminado.', 'success');
           },
           error: (error) => {

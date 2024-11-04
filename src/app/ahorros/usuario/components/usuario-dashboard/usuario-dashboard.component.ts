@@ -19,13 +19,11 @@ export class UsuarioDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Cargar datos desde la API y obtener el usuario actual
     this.cargarUsuarioActual();
   }
 
   cargarUsuarioActual(): void {
-    // Aquí puedes especificar un ID de usuario para cargarlo desde la API
-    const usuarioId = 2; // Cambia esto por el ID correspondiente
+    const usuarioId= 11; 
     this.usuarioService.leerUsuario(usuarioId).subscribe({
       next: (usuario) => {
         this.usuario = usuario;
@@ -47,7 +45,6 @@ export class UsuarioDashboardComponent implements OnInit, OnDestroy {
 
   guardarCambios(): void {
     if (this.usuario) {
-      // Llamar al servicio para guardar los cambios del usuario
       this.usuarioService.actualizarUsuario(this.usuario.id, this.usuario).subscribe({
         next: (updatedUsuario) => {
           this.usuario = updatedUsuario; // Actualizar el usuario en el componente

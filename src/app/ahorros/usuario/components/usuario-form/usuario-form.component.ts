@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario';
 import Swal from 'sweetalert2';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-usuario-form',
@@ -23,12 +22,17 @@ export class UsuarioFormComponent {
     if (this.validarDatos()) {
       this.usuarioService.crearUsuario(this.usuario).subscribe({
         next: (response) => {
+          // Almacena el ID del usuario en localStorage
+          localStorage.setItem('usuarioId', response.id.toString());
+
+          // Mensaje de éxito
           Swal.fire({
             title: '¡Éxito!',
             text: 'El usuario ha sido registrado correctamente.',
             icon: 'success',
             confirmButtonText: 'Aceptar'
           });
+
           this.resetForm();
         },
         error: (error) => {
