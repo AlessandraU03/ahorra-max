@@ -1,7 +1,7 @@
 export interface Usuario {
-    id: number;
-    nombre: string;
-    email: string;
-    saldoActual: number;
-  }
-  
+  id: number;
+  nombre: string;
+  correo: string;
+  ingresosMensuales: number;
+  saldoActual: number;
+}
