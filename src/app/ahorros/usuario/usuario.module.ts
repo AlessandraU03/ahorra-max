@@ -5,8 +5,6 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 import { UsuarioDashboardComponent } from './components/usuario-dashboard/usuario-dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { LoginComponent } from './auth/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -15,9 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     UsuarioFormComponent,
     UsuarioDashboardComponent,
     AuthComponent,
-    RegisterComponent,
-    LoginComponent // Declarar el nuevo componente
-  ],
+   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -25,7 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     UsuarioComponent,
-    UsuarioDashboardComponent // Exportar el nuevo componente si es necesario
+    UsuarioDashboardComponent 
   ]
 })
 export class UsuarioModule { }

@@ -14,11 +14,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let meta of metas">
-                <td>{{ meta.nombreMeta }}</td>
-                <td>{{ meta.montoObjetivo | currency }}</td>
-                <td>{{ meta.fechaLimite | date }}</td>
+                <td>{{ meta.nombre_meta }}</td>
+                <td>{{ meta.monto_objetivo | currency }}</td>
+                <td>{{ meta.fecha_limite | date }}</td>
                 <td>
-                    <input type="number" [(ngModel)]="meta.montoAhorrado" min="0" [max]="meta.montoObjetivo" placeholder="Monto Ahorrado">
+                    <input type="number" [(ngModel)]="meta.monto_ahorrado" min="0" [max]="meta.monto_objetivo" placeholder="Monto Ahorrado">
                     <button class="actualizar" (click)="actualizarProgreso(meta)">Actualizar</button>
                 </td>
                 <td>

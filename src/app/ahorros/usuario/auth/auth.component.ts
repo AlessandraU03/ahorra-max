@@ -1,57 +1,74 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
+import { Usuario } from '../models/usuario';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css'],
+  styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
-  authForm: FormGroup;
-  errorMessage: string | null = null;
+  usuario: Usuario = {
+    id: 0,
+    nombre: '',
+    correo: '',
+    ingresosMensuales: 0,
+    saldoActual: 0,        
+    contrasena: ''
+  };
+  isRegistering: boolean = false; 
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
-    this.authForm = this.fb.group({
-      nombre: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
+  constructor(private usuarioService: UsuarioService, private router: Router) {}
+
+  toggleMode(): void {
+    this.isRegistering = !this.isRegistering;
   }
 
-  onRegister() {
-    if (this.authForm.valid) {
-      const { nombre, email, password } = this.authForm.value;
-      this.authService.register(nombre).subscribe({
-        next: () => {
-          // Registro exitoso, puedes redirigir o mostrar un mensaje
-          this.router.navigate(['/']); // Redirigir al Dashboard o a la ruta principal
-        },
-        error: (err) => {
-          this.errorMessage = err.error.detail; // Muestra el error
-        }
-      });
+  submitForm(): void {
+    if (this.isRegistering) {
+      this.registrarUsuario();
+    } else {
+      this.loginUsuario();
     }
   }
 
-  onLogin() {
-    if (this.authForm.valid) {
-      const { email, password } = this.authForm.value;
-      this.authService.login(email, password).subscribe({
-        next: (data) => {
-          // Guarda el token en localStorage
-          localStorage.setItem('access_token', data.access_token);
-          this.router.navigate(['/']); // Redirigir al Dashboard o a la ruta principal
-        },
-        error: (err) => {
-          this.errorMessage = err.error.detail; // Muestra el error
-        }
-      });
+  registrarUsuario(): void {
+    if (this.validarDatos()) {
+      this.usuarioService.saveUsuario(this.usuario);
+      alert('Usuario registrado correctamente.');
+      this.resetForm();
+    } else {
+      alert('Por favor, ingresa valores válidos.');
     }
+  }
+
+  loginUsuario(): void {
+    const usuarioEncontrado = this.usuarioService.loginUsuario(this.usuario.correo, this.usuario.contrasena);
+    if (usuarioEncontrado) {
+      alert('Inicio de sesión exitoso.');
+      this.router.navigate(['/usuario']); 
+    } else {
+      alert('Correo o contraseña incorrectos. Por favor, regístrate primero.');
+    }
+  }
+
+  validarDatos(): boolean {
+    return (
+      this.usuario.correo !== '' &&
+      this.usuario.contrasena !== '' &&
+      (this.isRegistering ? this.usuario.nombre !== '' : true) 
+    );
+  }
+
+  private resetForm(): void {
+    this.usuario = {
+      id: 0,
+      nombre: '',
+      correo: '',
+      ingresosMensuales: 0,  
+      saldoActual: 0,        
+      contrasena: ''
+    };
   }
 }
