@@ -4,7 +4,7 @@ export interface Gasto {
   descripcion: string;
   categoria: string;
   monto: number;
-  fecha: Date; // Asegúrate de que sea del tipo correcto
+  fecha: Date; 
   metodoPago: string;
   frecuencia: string;
 }

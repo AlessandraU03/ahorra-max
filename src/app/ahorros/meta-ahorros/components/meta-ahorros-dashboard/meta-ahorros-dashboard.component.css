@@ -87,3 +87,18 @@ progress[value]::-webkit-progress-bar {
 progress[value]::-webkit-progress-value {
   background-color: #3e9482;
 }
+
+.alcanzada {
+  color: green;
+  font-weight: bold;
+}
+
+.en-progreso {
+  color: orange;
+  font-weight: bold;
+}
+
+.fallida {
+  color: red;
+  font-weight: bold;
+}

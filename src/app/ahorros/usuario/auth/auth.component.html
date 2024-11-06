@@ -1,0 +1,42 @@
+<div *ngIf="isRegistering">
+  <h1>Registrar Usuario</h1>
+  <form (ngSubmit)="submitForm()">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required>
+    </div>
+
+    <div>
+      <label for="correo">Correo Electrónico:</label>
+      <input type="email" id="correo" [(ngModel)]="usuario.correo" name="correo" required>
+    </div>
+
+    <div>
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" [(ngModel)]="usuario.contrasena" name="contrasena" required>
+    </div>
+
+    <button type="submit">Registrar</button>
+  </form>
+</div>
+
+<div *ngIf="!isRegistering">
+  <h1>Iniciar Sesión</h1>
+  <form (ngSubmit)="submitForm()">
+    <div>
+      <label for="correo">Correo Electrónico:</label>
+      <input type="email" id="correo" [(ngModel)]="usuario.correo" name="correo" required>
+    </div>
+
+    <div>
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" [(ngModel)]="usuario.contrasena" name="contrasena" required>
+    </div>
+
+    <button type="submit">Iniciar Sesión</button>
+  </form>
+</div>
+
+<button (click)="toggleMode()">
+  {{ isRegistering ? 'Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí' }}
+</button>
