@@ -21,7 +21,7 @@ export class MetaAhorrosDashboardComponent implements OnInit {
     this.metaService.listarMetas().subscribe({
       next: (metas: MetaAhorro[]) => {
         this.metas = metas;
-        this.calcularProgresoYEstado();  // Calcular el progreso y el estado después de cargar las metas
+        this.calcularProgresoYEstado();
       },
       error: (error) => {
         console.error('Error al listar metas:', error);
@@ -29,14 +29,11 @@ export class MetaAhorrosDashboardComponent implements OnInit {
     });
   }
 
-  // Calcular progreso y estado de cada meta
   calcularProgresoYEstado(): void {
     this.metas.forEach(meta => {
-      // Calcular progreso
       meta.progreso = (meta.monto_ahorrado / meta.monto_objetivo) * 100;
-      if (meta.progreso > 100) meta.progreso = 100; // Limitar el progreso a un máximo de 100%
+      if (meta.progreso > 100) meta.progreso = 100; 
 
-      // Calcular estado
       if (meta.progreso >= 100) {
         meta.estado = 'Alcanzada';
       } else if (new Date() > new Date(meta.fecha_limite)) {
@@ -60,7 +57,7 @@ export class MetaAhorrosDashboardComponent implements OnInit {
         if (result.isConfirmed) {
           this.metaService.eliminarMeta(id).subscribe({
             next: () => {
-              this.cargarMetas();  // Recargar metas después de eliminar
+              this.cargarMetas();  
               Swal.fire('Eliminado!', 'La meta ha sido eliminada.', 'success');
             },
             error: (error) => {
@@ -74,7 +71,6 @@ export class MetaAhorrosDashboardComponent implements OnInit {
   }
 
   actualizarProgreso(meta: MetaAhorro): void {
-    // Verificación del monto ahorrado
     if (meta.monto_ahorrado < 0 || meta.monto_ahorrado > meta.monto_objetivo) {
       Swal.fire({
         title: 'Error',
@@ -85,7 +81,7 @@ export class MetaAhorrosDashboardComponent implements OnInit {
       return; 
     }
     meta.progreso = (meta.monto_ahorrado / meta.monto_objetivo) * 100;
-    if (meta.progreso > 100) meta.progreso = 100;  // Asegurarse de que no exceda el 100%
+    if (meta.progreso > 100) meta.progreso = 100;
 
     if (meta.progreso >= 100) {
       meta.estado = 'Alcanzada';
