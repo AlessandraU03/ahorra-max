@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { UsuarioComponent } from './usuario.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 import { UsuarioDashboardComponent } from './components/usuario-dashboard/usuario-dashboard.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,15 +12,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     UsuarioFormComponent,
     UsuarioDashboardComponent,
     AuthComponent,
-   ],
+  ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,  
     FormsModule
   ],
   exports: [
     UsuarioComponent,
-    UsuarioDashboardComponent 
+    UsuarioDashboardComponent
   ]
 })
 export class UsuarioModule { }

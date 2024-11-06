@@ -16,7 +16,6 @@ export class MetaAhorrosDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.cargarMetas();
   }
-
   cargarMetas(): void {
     this.metaService.listarMetas().subscribe({
       next: (metas: MetaAhorro[]) => {
@@ -58,7 +57,7 @@ export class MetaAhorrosDashboardComponent implements OnInit {
           this.metaService.eliminarMeta(id).subscribe({
             next: () => {
               this.cargarMetas();  
-              Swal.fire('Eliminado!', 'La meta ha sido eliminada.', 'success');
+                Swal.fire('Eliminado!', 'La meta ha sido eliminada.', 'success');
             },
             error: (error) => {
               console.error('Error al eliminar meta:', error);
@@ -90,6 +89,7 @@ export class MetaAhorrosDashboardComponent implements OnInit {
     } else {
       meta.estado = 'En progreso';
     }
+
     this.metaService.actualizarMeta(meta.id, meta).subscribe({
       next: () => {
         Swal.fire({
