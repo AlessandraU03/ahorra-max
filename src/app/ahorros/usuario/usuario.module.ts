@@ -5,13 +5,14 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 import { UsuarioDashboardComponent } from './components/usuario-dashboard/usuario-dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     UsuarioComponent,
     UsuarioFormComponent,
     UsuarioDashboardComponent,
+
     AuthComponent,
    ],
   imports: [

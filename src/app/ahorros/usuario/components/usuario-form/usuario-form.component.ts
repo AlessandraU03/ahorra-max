@@ -36,6 +36,13 @@ export class UsuarioFormComponent {
       this.usuarioService.saveUsuario(this.usuario);
       alert('Usuario registrado correctamente.');
       this.resetForm();
+      this.usuario = {
+        id: 0,
+        nombre: '',
+        correo: '',
+        ingresosMensuales: 0,
+        saldoActual: 0,
+      };
     } else {
       alert('Por favor, ingresa valores válidos.');
     }
@@ -47,6 +54,7 @@ export class UsuarioFormComponent {
       this.usuario.correo !== '' &&
       this.usuario.ingresosMensuales > 0 &&
       this.usuario.saldoActual >= 0
+
     );
   }
 

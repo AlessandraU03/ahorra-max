@@ -23,6 +23,7 @@ export class MetaAhorrosFormComponent {
 
     agregarMeta(): void {
         if (!this.meta.nombre_meta) {
+
             Swal.fire({
                 title: 'Error',
                 text: 'El nombre de la meta es obligatorio.',
@@ -40,7 +41,9 @@ export class MetaAhorrosFormComponent {
             });
             return;
         }
+
         if (new Date(this.meta.fecha_limite) <= new Date()) {
+
             Swal.fire({
                 title: 'Error',
                 text: 'La fecha límite debe ser una fecha futura.',
@@ -50,10 +53,7 @@ export class MetaAhorrosFormComponent {
             return;
         }
 
-        // Calculamos el progreso y estado antes de enviar
         this.calcularProgreso();
-
-        // Enviar datos al backend
         this.metaService.crearMeta(this.meta).subscribe({
             next: (data) => {
                 Swal.fire({
@@ -62,7 +62,7 @@ export class MetaAhorrosFormComponent {
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
                 });
-                this.resetForm();  // Limpiar formulario después de crear la meta
+                this.resetForm();  
             },
             error: (error) => {
                 console.error('Error al crear la meta:', error);
@@ -77,9 +77,8 @@ export class MetaAhorrosFormComponent {
     }
 
     calcularProgreso(): void {
-        // Asegurarse de que el monto ahorrado no sea mayor que el monto objetivo
         if (this.meta.monto_ahorrado > this.meta.monto_objetivo) {
-            this.meta.monto_ahorrado = this.meta.monto_objetivo;  // Limitar el monto ahorrado
+            this.meta.monto_ahorrado = this.meta.monto_objetivo; 
         }
         this.meta.progreso = (this.meta.monto_ahorrado / this.meta.monto_objetivo) * 100;
 
@@ -90,6 +89,7 @@ export class MetaAhorrosFormComponent {
         } else {
             this.meta.estado = 'En progreso';
         }
+
     }
 
     private resetForm(): void {
